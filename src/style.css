@@ -1,0 +1,37 @@
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+
+}
+
+
+
+.head {
+    background-color:  #BBBFCA;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
+    opacity: .6;
+    /* position: fixed; */
+    width: 100%;
+    z-index: 9;
+  }
+
+  .head img{
+    
+    max-height: 2.5rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+  
+  aside {
+    float: right;
+  }
+
+  main {
+    max-width: 50%;
+  }
