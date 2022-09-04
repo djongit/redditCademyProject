@@ -32,11 +32,12 @@ export const loadPosts = createAsyncThunk(
   async(subreddit) => {
     const response = await fetch(`${API_ROOT}${subreddit}.json`);
     const json = await response.json();
-   console.log(json);
-    const postData = json.data.children.map((post)=> {
+  //  console.log(json);
+    const postData = json.data.children.map((post, index)=> {
       const { subreddit_name_prefixed, author, num_comments, title, id, ups, created_utc, permalink } = post.data;
       let img = post.data.url;
       return {
+      
         author,
         subreddit: subreddit_name_prefixed,
         title: title,
@@ -45,14 +46,50 @@ export const loadPosts = createAsyncThunk(
         id,
         ups,
         created_utc,
-        permalink
+        permalink,
+        comments: [],
+        isLoadingComments: false,
+        hasErrorComments: false,
+        displayComments: false
+     
+        
+        
+        
+
       }
     })
 
     return postData;
   }
 );
- 
+
+ // this will load comments after use presses comments button
+export const commentsLoad = createAsyncThunk(
+  'posts/commentsLoad',
+  async({permalink, i}, {state, dispatch}) => { 
+    // console.log(permalink) ;
+      const response = await fetch(`${API_ROOT}${permalink}.json`);
+      const json = await response.json();
+// console.log(json);
+      const commentData = json[1].data.children.map((comment, ind) => {
+          const { author, body, id, created_utc} = comment.data;
+          
+                return  { 
+                
+                        i: i,
+                        author,
+                        body,
+                        id,
+                        created_utc 
+                  }
+                                       
+          }
+           
+       );
+// return console.log(commentData) ;
+return commentData;  
+}
+);
 
 
 const initialSatate = {
@@ -62,7 +99,7 @@ const initialSatate = {
   searchTerm: '',
   selectedSubreddit: '/r/pics/'
 
-}
+};
 
 export const postsSlice = createSlice({
     name: 'posts',
@@ -81,22 +118,58 @@ export const postsSlice = createSlice({
          
             state.selectedSubreddit = action.payload;
          
+        },
+        toggleShowComments: (state, action) => {
+          state.posts[action.payload].displayComments = !state.posts[action.payload].displayComments;
+        },
+        commentsLoadPending: (state, action) => {
+          state.posts[action.payload].isLoadingComments = true;
+        },
+        commentsLoadFulfilled: (state, action) => {
+          state.posts[action.payload.i].comments = action.payload;
+        },
+        commentsLoadRejected: (state, action) => {
+          state.posts[action.payload].isLoadingComments = false;
+          state.posts[action.payload].rejectedLoadingComments = true;
         }
+        
+        
     },
     extraReducers: {
       [loadPosts.pending]: (state, action) =>{
+        
         state.isLoading = true;
         state.hasError = false;
       },
       [loadPosts.fulfilled]: (state, action) => {
+        console.log('loadPost: '+ action.payload);
         state.posts = action.payload;
         state.isLoading = false;
         state.hasError = false;
       },
       [loadPosts.rejected]: (state, action) => {
+        
         state.isLoading = false;
         state.hasError = true;
-      }
+      },
+
+      [commentsLoad.fulfilled]: (state, action) => {
+        console.log(action.payload);
+        state.posts[action.payload.i].comments = action.payload;
+        state.posts[action.payload.i].isLoadingComments = false;
+        state.posts[action.payload.i].hasErrorComments = false;
+
+      },
+      [commentsLoad.pending]: (state, action) => {
+        
+        state.posts[action.payload.i].isLoadingComments = true;
+        state.posts[action.payload.i].hasErrorComments = false;
+      },
+      [commentsLoad.rejected]: (state, action) => {
+        state.posts[action.payload.i].isLoadingComments = false;
+        state.posts[action.payload.i].hasErrorComments = true;       
+      },
+      
     }
 });
 
@@ -115,7 +188,7 @@ export const postsSlice = createSlice({
 
 export const selectSearchTerm = (state) => state.allPosts.searchTerm;
 export const selectAllPosts = (state) => state.allPosts.posts;
-export const { setSubreddit, setSearchTerm, clearSearchTerm } = postsSlice.actions;
+export const { setSubreddit, setSearchTerm, clearSearchTerm, toggleShowComments } = postsSlice.actions;
 export default postsSlice.reducer;
 
 export const postsToRender = createSelector([selectAllPosts, selectSearchTerm],

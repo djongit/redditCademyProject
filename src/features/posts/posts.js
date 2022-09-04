@@ -1,7 +1,8 @@
 import {Tile} from '../../components/postTile.js';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectAllPosts, postsSlice, loadPosts, postsToRender } from './postsSlice.js';
+import { selectAllPosts, postsSlice, loadPosts, postsToRender,toggleShowComments, commentsLoad  } from './postsSlice.js';
+
 import './stylePost.css';
 
 export const Posts = () => {
@@ -18,6 +19,8 @@ export const Posts = () => {
     useEffect(() => {
         dispatch(loadPosts(selectedSubreddit))},[selectedSubreddit]
         );
+
+
 
 // console.log(hasError);
 // console.log(allPostsS);
@@ -58,7 +61,11 @@ if (posts.length === 0) {
                         </span>
                         <span>{post.created_utc}</span>
                         <span className='postComments'>
-                            <button type = 'button'>
+                            <button type = 'button' onClick = { ()=>{
+                                
+                                                        dispatch(toggleShowComments(index));
+                                                        dispatch(commentsLoad({permalink: post.permalink, i: index } ));
+                                                }  }>
                                     Comments
                             </button>
                             {post.num_comments}

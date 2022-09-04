@@ -9,12 +9,18 @@ export const commentsLoad = createAsyncThunk(
         const response = await fetch(`${API_ROOT}${permalink}.json`);
         const json = await response.json();
 console.log(json);
-        const postData = json.data.children.map((comment)=> {
+        const commentData = json.data.children.map((comment) => {
             const { author, body, id, created_utc } = comment.data;
             let img = comment.data.url;
+            return  {
+                author,
+                body,
+                id,
+                created_utc
+            }
     }
     );
+    return commentData;
 }
 );
 
-commentsLoad(permalink);
