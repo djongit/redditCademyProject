@@ -2,7 +2,7 @@ import {Tile} from '../../components/postTile.js';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAllPosts, postsSlice, loadPosts, postsToRender,toggleShowComments, commentsLoad  } from './postsSlice.js';
-
+import { Comment } from '../../components/comment.js'
 import './stylePost.css';
 
 export const Posts = () => {
@@ -64,11 +64,15 @@ if (posts.length === 0) {
                             <button type = 'button' onClick = { ()=>{
                                 
                                                         dispatch(toggleShowComments(index));
-                                                        dispatch(commentsLoad({permalink: post.permalink, i: index } ));
+                                                        dispatch(commentsLoad(index, post.permalink));
                                                 }  }>
                                     Comments
                             </button>
                             {post.num_comments}
+                            {allPosts.posts[index].displayComments && allPosts.posts[index].comments.map((comment) => 
+                            <Comment content = {comment} key = {comment.id} />
+                            )
+                            }
                          </span>
                     </div>
 

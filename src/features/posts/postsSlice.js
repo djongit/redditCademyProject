@@ -2,8 +2,6 @@
  import { createSelector, createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-
-
 // export const loadData = () => {
 //     return {
 //       type: 'posts/loadPosts',
@@ -64,32 +62,55 @@ export const loadPosts = createAsyncThunk(
 );
 
  // this will load comments after use presses comments button
-export const commentsLoad = createAsyncThunk(
-  'posts/commentsLoad',
-  async({permalink, i}, {state, dispatch}) => { 
-    // console.log(permalink) ;
+export const commentsLoad = (i, permalink) => {
+  return async (dispatch) => {
+    dispatch(commentsLoadPending(i));
+    try {
       const response = await fetch(`${API_ROOT}${permalink}.json`);
       const json = await response.json();
-// console.log(json);
-      const commentData = json[1].data.children.map((comment, ind) => {
-          const { author, body, id, created_utc} = comment.data;
-          
-                return  { 
-                
-                        i: i,
-                        author,
-                        body,
-                        id,
-                        created_utc 
-                  }
-                                       
-          }
-           
-       );
-// return console.log(commentData) ;
-return commentData;  
+      const commentData = json[1].data.children.map((comment) => {
+        const { author, body, id, created_utc } = comment.data;
+        return {
+          author,
+          body,
+          id,
+          created_utc
+        }
+      });
+      return dispatch(commentsLoadFulfilled({i, commentData}));
+    } catch {
+      dispatch(commentsLoadRejected(i));
+    }
+  }
 }
-);
+ // --->>>AsyncThunk does not work. Could not pass parameter of the required post.
+
+// export const commentsLoad = createAsyncThunk(
+//   'posts/commentsLoad',
+//   async({permalink, i}, {state, dispatch}) => { 
+//     // console.log(permalink) ;
+//       const response = await fetch(`${API_ROOT}${permalink}.json`);
+//       const json = await response.json();
+// // console.log(json);
+//       const commentData = json[1].data.children.map((comment, ind) => {
+//           const { author, body, id, created_utc} = comment.data;
+          
+//                 return  { 
+                
+//                         i: i,
+//                         author,
+//                         body,
+//                         id,
+//                         created_utc 
+//                   }
+                                       
+//           }
+           
+//        );
+// // return console.log(commentData) ;
+// return commentData;  
+// }
+// );
 
 
 const initialSatate = {
@@ -126,11 +147,13 @@ export const postsSlice = createSlice({
           state.posts[action.payload].isLoadingComments = true;
         },
         commentsLoadFulfilled: (state, action) => {
-          state.posts[action.payload.i].comments = action.payload;
+          console.log('loadComments: '+ action.payload);
+          state.posts[action.payload.i].isLoadingComments = false;
+          state.posts[action.payload.i].comments = action.payload.commentData;
         },
         commentsLoadRejected: (state, action) => {
           state.posts[action.payload].isLoadingComments = false;
-          state.posts[action.payload].rejectedLoadingComments = true;
+          state.posts[action.payload].hasErrorComments = true;
         }
         
         
@@ -142,7 +165,7 @@ export const postsSlice = createSlice({
         state.hasError = false;
       },
       [loadPosts.fulfilled]: (state, action) => {
-        console.log('loadPost: '+ action.payload);
+        // console.log('loadPost: '+ action.payload);
         state.posts = action.payload;
         state.isLoading = false;
         state.hasError = false;
@@ -153,22 +176,22 @@ export const postsSlice = createSlice({
         state.hasError = true;
       },
 
-      [commentsLoad.fulfilled]: (state, action) => {
-        console.log(action.payload);
-        state.posts[action.payload.i].comments = action.payload;
-        state.posts[action.payload.i].isLoadingComments = false;
-        state.posts[action.payload.i].hasErrorComments = false;
+      // [commentsLoad.fulfilled]: (state, action) => {
+      //   console.log(action.payload);
+      //   state.posts[action.payload.i].comments = action.payload;
+      //   state.posts[action.payload.i].isLoadingComments = false;
+      //   state.posts[action.payload.i].hasErrorComments = false;
 
-      },
-      [commentsLoad.pending]: (state, action) => {
+      // },
+      // [commentsLoad.pending]: (state, action) => {
         
-        state.posts[action.payload.i].isLoadingComments = true;
-        state.posts[action.payload.i].hasErrorComments = false;
-      },
-      [commentsLoad.rejected]: (state, action) => {
-        state.posts[action.payload.i].isLoadingComments = false;
-        state.posts[action.payload.i].hasErrorComments = true;       
-      },
+      //   state.posts[action.payload.i].isLoadingComments = true;
+      //   state.posts[action.payload.i].hasErrorComments = false;
+      // },
+      // [commentsLoad.rejected]: (state, action) => {
+      //   state.posts[action.payload.i].isLoadingComments = false;
+      //   state.posts[action.payload.i].hasErrorComments = true;       
+      // },
       
     }
 });
@@ -188,7 +211,14 @@ export const postsSlice = createSlice({
 
 export const selectSearchTerm = (state) => state.allPosts.searchTerm;
 export const selectAllPosts = (state) => state.allPosts.posts;
-export const { setSubreddit, setSearchTerm, clearSearchTerm, toggleShowComments } = postsSlice.actions;
+export const { setSubreddit, 
+              setSearchTerm, 
+              clearSearchTerm, 
+              toggleShowComments,
+              commentsLoadPending,
+              commentsLoadFulfilled,
+              commentsLoadRejected
+            } = postsSlice.actions;
 export default postsSlice.reducer;
 
 export const postsToRender = createSelector([selectAllPosts, selectSearchTerm],
