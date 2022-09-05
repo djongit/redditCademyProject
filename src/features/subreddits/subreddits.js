@@ -7,6 +7,7 @@ import  { clearSearchTerm, setSubreddit } from '../posts/postsSlice.js'
 export const Subreddits = () => {
     const dispatch = useDispatch();
     const allSubreddits = useSelector((state) => state.subreddits);
+    const activeSubreddit = useSelector((state) => state.allPosts.posts.selectSubreddits);
     const { subreddits } = allSubreddits;
 
     useEffect(()=> {
@@ -22,7 +23,7 @@ export const Subreddits = () => {
                 <h2>Subreddits</h2>
                 <ul>
                     {subreddits.map((subreddit, index)=> {
-                    return <li key = {subreddit.id} >
+                    return <li className = {activeSubreddit === subreddit.url && 'activeSubreddit'} key = {subreddit.id} >
                             <button type = 'button' onClick = {()=>
                                     {dispatch(setSubreddit(subreddit.url));
                                         dispatch(clearSearchTerm(''));

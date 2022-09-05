@@ -5,14 +5,18 @@ import { selectAllPosts, postsSlice, loadPosts, postsToRender,toggleShowComments
 import { Comment } from '../../components/comment.js'
 import './stylePost.css';
 
+
 export const Posts = () => {
+
+    
     const dispatch = useDispatch();
     // const allPostsS = useSelector(selectAllPosts);
     
     const posts = useSelector(postsToRender);
     const allPosts = useSelector((state) => state.allPosts)
+    
     const { isLoading, hasError,selectedSubreddit, searchTerm } = allPosts;
-
+let date = new Date();
   
 
 
@@ -26,17 +30,24 @@ export const Posts = () => {
 // console.log(allPostsS);
 // console.log(isLoading);
 // console.log(allPosts.posts.data);
+if(hasError) {
+    return <p>Error While Loading.</p>
+}
 
-// if (isLoading) {
-//     return <p>Loadin...</p>
-// }
+if (isLoading) {
+    return <p>Loadin...</p>
+};
+
+
 if (posts.length === 0) {
     return (
         <div >
-            <h3>Results for "{searchTerm}"</h3>
+            <h3>No Results for "{searchTerm}"</h3>
         </div>
     )
-}
+};
+
+
 
 
     return (
@@ -60,19 +71,19 @@ if (posts.length === 0) {
                             {post.author}
                         </span>
                         <span>{post.created_utc}</span>
+                        {/* <span>{(date - post.created_utc).toString()}</span> */}
                         <span className='postComments'>
                             <button type = 'button' onClick = { ()=>{
                                 
                                                         dispatch(toggleShowComments(index));
-                                                        dispatch(commentsLoad(index, post.permalink));
+                                                        allPosts.posts[index].comments.length === 0 && dispatch(commentsLoad(index, post.permalink));
                                                 }  }>
                                     Comments
                             </button>
                             {post.num_comments}
-                            {allPosts.posts[index].displayComments && allPosts.posts[index].comments.map((comment) => 
-                            <Comment content = {comment} key = {comment.id} />
-                            )
-                            }
+                            {allPosts.posts[index].displayComments && allPosts.posts[index].comments.map((comment) => <Comment content = {comment} key = {comment.id} />)}
+                            {allPosts.posts[index].isLoadingComments && <p>Loading...</p>}
+                            {allPosts.posts[index].hasErrorComments && <p>Error While Loading</p>}
                          </span>
                     </div>
 

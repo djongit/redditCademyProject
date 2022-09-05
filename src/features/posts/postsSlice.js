@@ -77,13 +77,13 @@ export const commentsLoad = (i, permalink) => {
           created_utc
         }
       });
-      return dispatch(commentsLoadFulfilled({i, commentData}));
+      dispatch(commentsLoadFulfilled({i, commentData}));
     } catch {
       dispatch(commentsLoadRejected(i));
     }
   }
 }
- // --->>>AsyncThunk does not work. Could not pass parameter of the required post.
+ // --->>>AsyncThunk did not work. Could not pass parameter of the required post.
 
 // export const commentsLoad = createAsyncThunk(
 //   'posts/commentsLoad',
@@ -147,7 +147,7 @@ export const postsSlice = createSlice({
           state.posts[action.payload].isLoadingComments = true;
         },
         commentsLoadFulfilled: (state, action) => {
-          console.log('loadComments: '+ action.payload);
+          // console.log('loadComments: '+ action.payload);
           state.posts[action.payload.i].isLoadingComments = false;
           state.posts[action.payload.i].comments = action.payload.commentData;
         },
