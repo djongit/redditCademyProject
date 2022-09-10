@@ -1,0 +1,36 @@
+
+.headLogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ff3300;
+    font-weight: bold;
+    font-size: 1.5rem;
+   
+}
+.headLogo span {
+    color: black;
+    font-weight: bold;
+}
+
+form {
+  width: 30%; 
+  text-align: center;
+  display: grid;
+  grid-template-columns: 8fr 1fr 1fr;
+  
+}
+input {
+ height: 2rem;
+ width: 70%;
+ padding-left: 1rem;
+ border-radius: .2rem;
+
+}
+.head button {
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   height: 100%;
+    
+}

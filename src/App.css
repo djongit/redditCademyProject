@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: #F7F7F7;
 }
 
 .App-logo {
@@ -13,14 +14,7 @@
   }
 }
 
-.App-header {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-}
+
 
 .App-link {
   color: rgb(112, 76, 182);
@@ -36,4 +30,14 @@
   100% {
     transform: translateY(0px);
   }
+}
+
+
+/* here are my styling */
+
+.content {
+  display: inline-grid;
+  width: 80%;
+  grid-template-columns: 65% 35%;
+  grid-column-gap: 1rem;
 }

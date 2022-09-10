@@ -29,6 +29,7 @@ export const loadPosts = createAsyncThunk(
   'posts/loadPosts',
   async(subreddit) => {
     const response = await fetch(`${API_ROOT}${subreddit}.json`);
+   
     const json = await response.json();
   //  console.log(json);
     const postData = json.data.children.map((post, index)=> {

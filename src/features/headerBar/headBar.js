@@ -3,7 +3,7 @@ import logoReddit from './images/logoReddit.png';
 import logoSearch from './images/iconSearch.svg';
 import logoGitHub from './images/logoGitHub.png';
 import remove from './images/cross.png';
-// import {selectSearchTem} from './searchSlice.js';
+import './headBarStyle.css';
 import {useDispatch, useSelector} from 'react-redux';
 import { setSearchTerm, clearSearchTerm, selectSearchTerm} from '../posts/postsSlice.js';
 
@@ -33,14 +33,20 @@ export const HeaderBar = () => {
 
     return (
         <header className = "head">
-            
+            <div className = 'headLogo'>
                 <img className = "redditLogo" alt = "Reddit Logo" src = {logoReddit}/>
+                <p>
+                    Reddit
+                    <span>Read</span>
+                 </p>
+            </div>
+                
            
-            <form onSubmit={submitSearchTerm}>
+            <form className='headForm' onSubmit={submitSearchTerm}>
                 <input 
                     id ="search"
                     type = "text" 
-                    placeholder = "Search Post"
+                    placeholder = "Search"
                     value = {searchTermLocal}
                     onChange = {handleSearch}
                 />
@@ -48,7 +54,7 @@ export const HeaderBar = () => {
                                                 <img alt = 'remove' src = {remove}/>
                                             </button>}
 
-                <button type = 'submit' aria-label = 'search'>
+                <button type = 'submit' aria-label = 'search' onClick = { submitSearchTerm }>
                     <img alt = "search" src = {logoSearch}/>
                 </button>
             </form>

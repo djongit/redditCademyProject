@@ -16,18 +16,15 @@ export const loadSubreddits = createAsyncThunk(
         const json = await response.json();
         // console.log(json);
         const redditData = json.data.children.map((subreddit)=> {
-                const { display_name_prefixed,
-                    url,
-                    title,
+                const { display_name,
+                    url,                   
                     id,
-                    banner_img,
                     icon_img,
 
                  } = subreddit.data;
                 return {
-                    // name: display_name_prefixed,
                     url,
-                    title,
+                    title: display_name,
                     id,
                     image: icon_img,
                 }

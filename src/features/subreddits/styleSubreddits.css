@@ -1,0 +1,29 @@
+.subredditList {
+    list-style: none;
+}
+
+.subredditList li {
+    display: flex;
+    margin: .5rem;
+   
+}
+.subredditList button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 4rem;
+    padding: 1rem;
+    border-radius: .2rem;
+}
+
+.subredditIcon {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    border: 2px solid;
+    margin-right: .5rem;
+}
+.activeSubreddit button{
+    /* background-color: #FFB72B; */
+    background-color: #aaafbe;
+}

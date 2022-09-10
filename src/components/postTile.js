@@ -7,18 +7,7 @@ export const Tile = (props) => {
     // console.log(content);
  
     return (
-        <div  className = {`tile_${className}`} tabIndex = {0}>
-           
-                    <div>
-                        
-                         {/* <h3 className={`${className}_name`}>{content.title}</h3>
-                         <h4 className={`${className}_author`}>{content.author}</h4>
-                        <div className="imgContainer">
-                            <img src = {content.image} className = {className} alt = {content.name}/>
-                          
-                        </div>  */}
-                    </div>
-               
+        <div  className = {`tile_${className}`} tabIndex = {0}>               
             {props.children}
         </div>
     ) 
