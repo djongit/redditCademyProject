@@ -50,11 +50,11 @@ export const HeaderBar = () => {
                     value = {searchTermLocal}
                     onChange = {handleSearch}
                 />
-                {searchTermLocal !== '' && <button  onClick = {clearSearch}>
+                {searchTermLocal !== '' && <button className='headRemoveButton' onClick = {clearSearch}>
                                                 <img alt = 'remove' src = {remove}/>
                                             </button>}
 
-                <button type = 'submit' aria-label = 'search' onClick = { submitSearchTerm }>
+                <button className='headSearchButton' type = 'submit' aria-label = 'search' onClick = { submitSearchTerm }>
                     <img alt = "search" src = {logoSearch}/>
                 </button>
             </form>

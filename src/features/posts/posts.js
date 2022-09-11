@@ -62,7 +62,7 @@ if (posts.length === 0) {
                 return <Tile key = {index} content = {post} className = "post">
                  <div className='postTile'>
                     <div className='postVote'>
-                        <button className='voteUp' type = 'button'>
+                        <button className='voteUp'  type = 'button'>
                                     <img src = {voteUpArrow} alt = ''/>
                         </button>
                         <p>
@@ -77,13 +77,15 @@ if (posts.length === 0) {
                        <h4>{post.title}</h4> 
                         <img src = {post.image} alt = 'img' />
                         <div className='postInfo'>
+                             <div className='postComments'>
                             <span className='authorInfo'>
                                 {post.author}
                             </span>
                             <span>{toHumanTime(post.created_utc)}</span>
                             
-                            <span className='postComments'>
-                                <div>
+                           
+
+                                 
 
                                     <button type = 'button' onClick = { ()=>{
                                     
@@ -92,18 +94,20 @@ if (posts.length === 0) {
                                                     }  }>
                                         <img src = {chat} alt = ''/>
                                         {allPosts.posts[index].displayComments ? <img src = {commentUp} alt = '' /> : <img src = {commentDown} alt = ''/>}
-                                </button>
-                                {post.num_comments}
+                                    </button>
+                                    {post.num_comments}
                                 </div>
-                                
-                                <div>
-                                    {allPosts.posts[index].displayComments && allPosts.posts[index].comments.map((comment) => <Comment content = {comment} key = {comment.id} />)}
-                                    {allPosts.posts[index].isLoadingComments && <Spinner/>}
-                                    {allPosts.posts[index].hasErrorComments && <p>Error While Loading</p>}
+                                <span className='postComments'>    
+                                    <div>
+                                        {allPosts.posts[index].displayComments && allPosts.posts[index].comments.map((comment) => <Comment content = {comment} key = {comment.id} />)}
+                                        {allPosts.posts[index].isLoadingComments && <Spinner/>}
+                                        {allPosts.posts[index].hasErrorComments && <p>Error While Loading</p>}
 
-                                </div>
-                              
-                            </span>
+                                    </div>
+                                
+                                </span>
+                            
+                               
                         </div>
                     </div>
                 
