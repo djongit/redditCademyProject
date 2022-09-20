@@ -13,12 +13,20 @@
     font-weight: bold;
 }
 
+.searchContainer {
+  width: 30%;
+  display: inline-grid;
+  grid-template-columns: 1fr 8fr;
+  grid-column-gap: .5rem;
+}
+
 form {
-  width: 30%; 
+  width: 100%; 
   text-align: center;
   display: grid;
-  grid-template-columns: 8fr 1fr 1fr;
+  grid-template-columns: 8fr 1fr;
   grid-column-gap: .5rem;
+  grid-column: 2/ span 1;
   
 }
 input {
@@ -28,7 +36,7 @@ input {
  border-radius: .2rem;
 
 }
-.head button {
+.searchContainer button {
    width: 100%;
    display: flex;
    justify-content: center;
@@ -39,10 +47,13 @@ input {
 }
 
 .headRemoveButton {
-grid-column: 2/ span 1 ;
+
+grid-column: 0/ span 1;
+
+
 }
 .headSearchButton{
-  grid-column: 3/ span 1;
+  grid-column: 2/ span 1;
   
 }
 

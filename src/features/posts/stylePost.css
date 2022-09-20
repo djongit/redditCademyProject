@@ -54,3 +54,18 @@ grid-row: 1/2;
      padding: .2rem;
      display: flex;
 }
+
+.postTile button {
+    background-color: white;
+    cursor: pointer;
+}
+.postComments button:hover {
+    background-color: #e2e2e2;
+}
+.voteUp:hover {
+    background-color: aquamarine;
+}
+
+.voteDown:hover {
+    background-color: rgb(255, 131, 131);
+}

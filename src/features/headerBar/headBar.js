@@ -40,24 +40,28 @@ export const HeaderBar = () => {
                     <span>Read</span>
                  </p>
             </div>
-                
-           
-            <form className='headForm' onSubmit={submitSearchTerm}>
-                <input 
-                    id ="search"
-                    type = "text" 
-                    placeholder = "Search"
-                    value = {searchTermLocal}
-                    onChange = {handleSearch}
-                />
-                {searchTermLocal !== '' && <button className='headRemoveButton' onClick = {clearSearch}>
+                <div className='searchContainer'>
+
+                    {searchTermLocal !== '' && <button className='headRemoveButton' onClick = {clearSearch}>
                                                 <img alt = 'remove' src = {remove}/>
                                             </button>}
+                <form className='headForm' onSubmit={submitSearchTerm}>
+                    <input 
+                        id ="search"
+                        type = "text" 
+                        placeholder = "Search"
+                        value = {searchTermLocal}
+                        onChange = {handleSearch}
+                    />
+                    
 
-                <button className='headSearchButton' type = 'submit' aria-label = 'search' onClick = { submitSearchTerm }>
-                    <img alt = "search" src = {logoSearch}/>
-                </button>
-            </form>
+                    <button className='headSearchButton' type = 'submit' aria-label = 'search' onClick = { submitSearchTerm }>
+                        <img alt = "search" src = {logoSearch}/>
+                    </button>
+                </form>
+            </div>
+            
+           
             <div className = "gitHub">
                 <a href = 'https://github.com/djongit' target= "_blank" rel = "noreferrer">
                     <img alt = "GitHub Logo" src = {logoGitHub}/>
