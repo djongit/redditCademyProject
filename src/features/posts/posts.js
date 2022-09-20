@@ -1,7 +1,7 @@
 import {Tile} from '../../components/postTile.js';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectAllPosts, postsSlice, loadPosts, postsToRender,toggleShowComments, commentsLoad  } from './postsSlice.js';
+import { loadPosts, postsToRender,toggleShowComments, commentsLoad  } from './postsSlice.js';
 import { Comment } from '../../components/comment.js'
 import './stylePost.css';
 import { toHumanTime } from '../../utilities/timeConverter.js';
@@ -23,19 +23,10 @@ export const Posts = () => {
     
     const { isLoading, hasError,selectedSubreddit, searchTerm } = allPosts;
 
-  
-
-
     useEffect(() => {
         dispatch(loadPosts(selectedSubreddit))},[selectedSubreddit]
         );
 
-
-
-// console.log(hasError);
-// console.log(allPostsS);
-// console.log(isLoading);
-// console.log(allPosts.posts.data);
 if(hasError) {
     return <p>Error While Loading.</p>
 }
@@ -81,11 +72,7 @@ if (posts.length === 0) {
                             <span className='authorInfo'>
                                 {post.author}
                             </span>
-                            <span>{toHumanTime(post.created_utc)}</span>
-                            
-                           
-
-                                 
+                            <span>{toHumanTime(post.created_utc)}</span>                                
 
                                     <button type = 'button' onClick = { ()=>{
                                     
@@ -111,28 +98,11 @@ if (posts.length === 0) {
                         </div>
                     </div>
                 
-                </div>   
-                   
-                    
-
-                    
-
-                     
+                </div>                        
                 </Tile>
                 
             })}
         </div>
     )
 
-
-
-
-//     return (
-//         <div>
-//                 {Object.keys(allPostsS).map((post, index) =>(
-//                     <Tile key = {index} content = {post} />
-//                 )  )}
-            
-//         </div>
-//     )
 }

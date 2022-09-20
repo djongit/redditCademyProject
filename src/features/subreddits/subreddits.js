@@ -1,8 +1,8 @@
 import React, { useEffect }from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Tile } from '../../components/postTile.js';
-import { selectSubreddits, loadSubreddits } from "./subredditSlice";
-import  { selectAllPosts, clearSearchTerm, setSubreddit } from '../posts/postsSlice.js'
+import {  loadSubreddits } from "./subredditSlice";
+import  {  clearSearchTerm, setSubreddit } from '../posts/postsSlice.js'
 import './styleSubreddits.css';
 
 export const Subreddits = () => {
@@ -10,10 +10,8 @@ export const Subreddits = () => {
     const allSubreddits = useSelector((state) => state.subreddits);
     const activeSubreddit = useSelector((state) => state.allPosts.selectedSubreddit);
     
-   console.log('selected : '+activeSubreddit) 
-    const { subreddits } = allSubreddits;
-    console.log('url ' + subreddits.url);
-;
+    const { subreddits } = allSubreddits;   
+
     useEffect(()=> {
         dispatch(loadSubreddits());
     },[dispatch])

@@ -3,7 +3,7 @@ import React from 'react';
 import './App.css';
 import { HeaderBar } from './features/headerBar/headBar.js';
 import './style.css';
-import {Categories} from './features/categories/categories.js';
+// import {Categories} from './features/categories/categories.js';
 import { Posts } from './features/posts/posts.js';
 import { Subreddits } from './features/subreddits/subreddits.js';
 

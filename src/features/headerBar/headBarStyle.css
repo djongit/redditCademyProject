@@ -60,3 +60,22 @@ grid-column: 0/ span 1;
 .headSearchButton img {
   height: 90%;
 }
+
+@media only screen and (max-width: 876px) {
+  .headLogo p {
+    font-size: 1rem;
+  }
+  .searchContainer {
+    width: 50%;
+  }
+}
+@media only screen and (max-width: 497px) {
+  .headLogo img {
+    width: 50%;
+  }
+  
+  .headLogo p {
+    font-size: 50%;
+  }
+}
+
