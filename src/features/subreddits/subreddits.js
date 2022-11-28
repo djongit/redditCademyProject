@@ -1,6 +1,6 @@
 import React, { useEffect }from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Tile } from '../../components/postTile.js';
+import { Tile } from '../../components/tile.js';
 import {  loadSubreddits } from "./subredditSlice";
 import  {  clearSearchTerm, setSubreddit } from '../posts/postsSlice.js'
 import './styleSubreddits.css';

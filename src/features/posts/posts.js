@@ -1,4 +1,4 @@
-import {Tile} from '../../components/postTile.js';
+import {Tile} from '../../components/tile.js';
 import React, { useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadPosts, postsToRender,toggleShowComments, commentsLoad  } from './postsSlice.js';
@@ -6,8 +6,8 @@ import { Comment } from '../../components/comment.js'
 import './stylePost.css';
 import { toHumanTime } from '../../utilities/timeConverter.js';
 import Spinner from '../../components/spinner.js';
-import voteUpArrow from './postImages/voteUpArrow.png'
-import voteDownArrow from './postImages/voteDownArrow.png';
+// import voteUpArrow from './postImages/voteUpArrow.png'
+// import voteDownArrow from './postImages/voteDownArrow.png';
 import commentUp from './postImages/commentUp.png';
 import commentDown from './postImages/commentDown.png';
 import chat from './postImages/chat.png';
@@ -50,10 +50,10 @@ if (posts.length === 0) {
     return (
         <div className='posts'>
             {posts.map((post, index) => {
-                return <Tile key = {index} content = {post} className = "post">
+                return <Tile key = {index}  className = "post">
                  <div className='postTile'>
                     <div className='postVote'>
-                        <button className='voteUp'  type = 'button'>
+                        {/* <button className='voteUp'  type = 'button'>
                                     <img src = {voteUpArrow} alt = ''/>
                         </button>
                         <p>
@@ -61,12 +61,12 @@ if (posts.length === 0) {
                         </p>
                         <button className = 'voteDown' type = 'button'>
                         <img src = {voteDownArrow} alt = ''/>
-                        </button>
+                        </button> */}
                     </div> 
 
                     <div className='postContent'>
                        <h4>{post.title}</h4> 
-                        <img src = {post.image} alt = 'img' />
+                        <img src = {post.image} alt = '' />
                         <div className='postInfo'>
                              <div className='postComments'>
                             <span className='authorInfo'>
