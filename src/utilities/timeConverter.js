@@ -17,7 +17,7 @@ export const toHumanTime = (unixTime) => {
     const hour = minute * 60;
     const day = hour * 24;
     const month = day * 30;
-    const year = month * 12;
+    const year = day * 365;
          
     let a = Math.min.apply(Math, [seconds, minutes, hours, days, months, years].filter(Number))*-1;
     

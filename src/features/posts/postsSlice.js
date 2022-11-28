@@ -1,42 +1,18 @@
-// import allPostsData from "../../data/data"; 
+
  import { createSelector, createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-// export const loadData = () => {
-//     return {
-//       type: 'posts/loadPosts',
-//       payload: allPostsData
-//     }
-//   }
-  
-//   const initialState = [];
-//   const allPostsReducer = (allPostA = initialState, action) => {
-//     switch (action.type) {
-//       case 'posts/loadPosts':
-//         return action.payload;
-//         default:
-//             return allPostA;
-
-//     }
-// }
-
-// export const selectAllPosts = (state) => state.allPosts;
-
-// export default allPostsReducer;
 const API_ROOT = 'https://www.reddit.com';
 
 export const loadPosts = createAsyncThunk(
   'posts/loadPosts',
   async(subreddit) => {
-    const response = await fetch(`${API_ROOT}${subreddit}.json`);
-   
+    const response = await fetch(`${API_ROOT}${subreddit}.json`);  
     const json = await response.json();
-  //  console.log(json);
     const postData = json.data.children.map((post, index)=> {
       const { subreddit_name_prefixed, author, num_comments, title, id, ups, created_utc, permalink } = post.data;
       let img = post.data.url;
-      return {
-      
+      return {     
         author,
         subreddit: subreddit_name_prefixed,
         title: title,
@@ -148,7 +124,6 @@ export const postsSlice = createSlice({
           state.posts[action.payload].isLoadingComments = true;
         },
         commentsLoadFulfilled: (state, action) => {
-          // console.log('loadComments: '+ action.payload);
           state.posts[action.payload.i].isLoadingComments = false;
           state.posts[action.payload.i].comments = action.payload.commentData;
         },
@@ -166,7 +141,6 @@ export const postsSlice = createSlice({
         state.hasError = false;
       },
       [loadPosts.fulfilled]: (state, action) => {
-        // console.log('loadPost: '+ action.payload);
         state.posts = action.payload;
         state.isLoading = false;
         state.hasError = false;
