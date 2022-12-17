@@ -7,11 +7,12 @@ As well as how to manipulate data which is comming from server(.json).
 
 ### Features
 Application contain:
-  - Subreddit section where user can choose subreddit topic.
+  - Subreddit section where the user can choose a subreddit topic.
   - Post section where selected post are rendered
-  - Categories section 
-  - Search term can be looked for in current page
-  - Comment can be viewed under each post
+  - Category section 
+  - The search term can be looked for on the current page
+  - Comments can be viewed under each post
+  - The time converter was created by me to convert unix time into an easily understandable form. 
 
 ### Technologies
-HTML CSS JavaScript React ReactReduxgit 
+HTML CSS JavaScript React ReactRedux Git 
