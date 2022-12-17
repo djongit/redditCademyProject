@@ -10,7 +10,8 @@ Application contain:
   - Subreddit section where user can choose subreddit topic.
   - Post section where selected post are rendered
   - Categories section 
-  - 
+  - Search term can be looked for in current page
+  - Comment can be viewed under each post
 
 ### Technologies
-HTML CSS JavaScript React ReactRedux
+HTML CSS JavaScript React ReactReduxgit 
