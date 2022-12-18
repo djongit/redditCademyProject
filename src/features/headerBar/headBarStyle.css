@@ -70,12 +70,22 @@ grid-column: 0/ span 1;
   }
 }
 @media only screen and (max-width: 497px) {
+  .headLogo {
+    justify-content: space-around;
+  }
   .headLogo img {
-    width: 50%;
+    max-width: 50%;
+    margin-right: 0;
+    margin-left: 0.5rem;
+    
   }
   
   .headLogo p {
-    font-size: 50%;
+    /* font-size: 30%; */
+    display: none;
+  }
+  .gitHub img {
+    max-width: 40%;
   }
 }
 

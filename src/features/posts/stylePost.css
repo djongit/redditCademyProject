@@ -1,10 +1,7 @@
 img {
     max-width: 100%;
 }
-/* .post {
-grid-row: 1/2;
 
-} */
 .postTile{
     display: flex;
     justify-content: space-between;
@@ -40,6 +37,7 @@ grid-row: 1/2;
     flex-direction: column;
     
 }
+
 .postComments{
     display: inline-flex;
     justify-content: space-between;
@@ -72,10 +70,14 @@ grid-row: 1/2;
 
 @media only screen and (max-width: 497px) {
     p {
-        font-size: 70%;
+        font-size: 77%;
     }
     h4 {
         font-size: 80%;
+    }
+    .postComments {
+        font-size: 77%;
+        overflow-wrap: break-word;
     }
   }
   
